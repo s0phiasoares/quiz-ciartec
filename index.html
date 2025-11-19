@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 A Terra Pede Socorro</title>
+<link rel="stylesheet" href="style.css">
+<script src="menu.js" defer></script>
+</head>
+<body>
+
+<div class="main-container">
+
+  <!-- MENU -->
+  <div class="menu-wrapper">
+    <div class="menu-card">
+      <h1 class="menu-title">🌍 A Terra Pede Socorro</h1>
+      <p class="menu-subtitle">Bem-vindo(a) Guardião da Terra! 💚</p>
+
+      <input type="text" id="playerName" class="input-name" placeholder="Digite seu nome...">
+
+      <button class="btn start-btn" onclick="startGame()">🎮 Começar</button>
+      <a href="ranking.html" class="btn ranking-btn">🏆 Ranking</a>
+
+      <div class="rules-box">
+        <h3>📜 Regras</h3>
+        <ul>
+          <li>❤️ 3 vidas iniciais</li>
+          <li>⏳ Tempo por pergunta</li>
+          <li>📶 3 níveis: Fácil, Médio e Difícil</li>
+        </ul>
+        <p class="good-luck">🍀 Boa sorte no quiz!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-wrapper" style="display:none;">
+    <!-- Título da Pergunta -->
+    <h2 class="quiz-title" id="questionTitle">Pergunta 1️⃣</h2>
+
+    <!-- Imagem da pergunta -->
+    <img src="terra.png" alt="Imagem da Terra" class="quiz-image" id="questionImage">
+
+    <!-- Container da pergunta e opções -->
+    <div class="quiz-container">
+      <div class="stats">
+        <span id="lives">Vidas: 3</span>
+        <span id="timer">30s</span>
+      </div>
+
+      <div class="options">
+        <button onclick="checkAnswer(0)">Opção A</button>
+        <button onclick="checkAnswer(1)">Opção B</button>
+        <button onclick="checkAnswer(2)">Opção C</button>
+      </div>
+
+      <div class="time-bar-container">
+        <div class="time-bar" id="timeBar"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="quiz.js"></script>
+</body>
+</html>
