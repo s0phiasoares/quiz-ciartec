@@ -6,12 +6,13 @@ body {
   background: linear-gradient(135deg, #8ee7b4, #b6f0ff);
   color: #003d2e;
   min-height: 100vh;
+
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 30px;
+  justify-content: center; /* horizontal permanece centralizado */
+  align-items: center;     /* vertical centralizado */
 }
 
+/* Container principal do quiz/menu */
 .main-container {
   display: flex;
   flex-direction: column;
