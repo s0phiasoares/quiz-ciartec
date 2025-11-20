@@ -1,72 +1,103 @@
-// ----------------------------
-// Configurações do quiz
-// ----------------------------
 const quizData = [
-  [
-    { question: "1️⃣ O que é um desastre natural? 🌊",
-      options: ["Um evento natural que causa danos", "Desmatamento", "Poluição"],
-      answer: 0 },
-    { question: "2️⃣ Qual desses é um desastre natural? 🌪️",
-      options: ["Terremoto", "Poluição industrial de rio", "Queimar resíduos em áreas abertas para reduzir volume"],
-      answer: 0 },
-    { question: "3️⃣ O que devemos fazer com o lixo? 🗑️",
-      options: ["Descartar corretamente e separar para reciclagem", "Reciclar", "Queimar tudo"],
-      answer: 0 }
-  ],
-  [
-    { question: "4️⃣ O que o aquecimento global provoca? 🏔️",
-      options: ["Aumento das áreas de gelo nos polos", "Derretimento das geleiras", "Temperaturas mais quentes em todo o planeta"],
-      answer: 1 },
-    { question: "5️⃣ Qual é uma ação sustentável?🌏 ",
-      options: ["Usar sacolas reutilizáveis", "Substituir áreas de floresta por fazendas de energia solar", "Reciclar materiais sem se preocupar com a redução do consumo"],
-      answer: 0 },
-    { question: "6️⃣ Por que devemos economizar energia? ⚡",
-      options: ["Porque a produção de energia muitas vezes causa impactos ambientais", "Para reduzir impactos ambientais", "Porque quanto mais energia usamos, mais sustentável o sistema se torna"],
-      answer: 1 }
-  ],
-  [
-    { question: "7️⃣ O que é efeito estufa? ☄️",
-      options: ["Camada que mantém o calor da Terra", "Um tipo de cultivo agrícola em regiões tropicais","Um fenômeno astronômico que acontece fora da atmosfera"],
-      answer: 0 },
-    { question: "8️⃣ Qual desses é consequência do desmatamento? 🌲",
-      options: ["Aumento da absorção de carbono pelas florestas", "Perda de habitat, erosão do solo e desequilíbrio climático", "Criação de novas espécies adaptadas ao desmatamento"],
-      answer: 1 },
-    { question: "9️⃣ Como podemos agir agora pelo amanhã? 🌞",
-      options: ["Consumindo de forma consciente e reduzindo o desperdício", "Aumentando o uso de combustíveis fósseis", "Acreditando que apenas governos e empresas devem agir"],
-      answer: 0 }
-  ]
+  {
+    question: "1️⃣ O que é desmatamento?",
+    options: [
+      "Corte de árvores de forma legal",
+      "Destruição de florestas de forma acelerada",
+      "Plantar mais árvores"
+    ],
+    answer: 1
+  },
+  {
+    question: "2️⃣ Qual é uma consequência do desmatamento?",
+    options: [
+      "Aumento da biodiversidade",
+      "Perda de habitat de animais e erosão do solo",
+      "Mais oxigênio na atmosfera"
+    ],
+    answer: 1
+  },
+  {
+    question: "3️⃣ O aquecimento global provoca:",
+    options: [
+      "Derretimento das geleiras e aumento do nível do mar",
+      "Formação de novas florestas",
+      "Redução da temperatura global"
+    ],
+    answer: 0
+  },
+  {
+    question: "4️⃣ Qual ação ajuda a combater o aquecimento global?",
+    options: [
+      "Queimar mais combustíveis fósseis",
+      "Usar energia renovável e reduzir consumo de energia",
+      "Destruir florestas para construção"
+    ],
+    answer: 1
+  },
+  {
+    question: "5️⃣ Como podemos ajudar a reduzir o desmatamento?",
+    options: [
+      "Consumindo produtos de madeira de forma consciente",
+      "Não reciclando",
+      "Ignorando políticas ambientais"
+    ],
+    answer: 0
+  },
+  {
+    question: "6️⃣ O que é reflorestamento?",
+    options: [
+      "Plantar árvores em áreas desmatadas",
+      "Cortar árvores antigas",
+      "Transformar florestas em cidades"
+    ],
+    answer: 0
+  },
+  {
+    question: "7️⃣ Qual gás é o principal responsável pelo aquecimento global?",
+    options: [
+      "Oxigênio",
+      "Dióxido de carbono (CO₂)",
+      "Nitrogênio"
+    ],
+    answer: 1
+  },
+  {
+    question: "8️⃣ Qual ação individual ajuda a combater o aquecimento global?",
+    options: [
+      "Reduzir uso de transporte individual e reciclar",
+      "Desperdiçar energia",
+      "Usar produtos descartáveis em excesso"
+    ],
+    answer: 0
+  }
 ];
 
-const faseTempo = [30, 25, 15];
-let level = 0;
 let current = 0;
 let lives = 3;
+let timeLeft = 20;
 let timer;
-let timeLeft;
-let tempoSobraTotal = 0;
-let canAnswer = true;
 
-// ----------------------------
-// Nome do jogador
-// ----------------------------
-let playerName = localStorage.getItem("playerName");
+const startBtn = document.getElementById("startBtn");
+const menuWrapper = document.querySelector(".menu-wrapper");
+const quizWrapper = document.querySelector(".quiz-wrapper");
 
-if (!playerName) {
-  playerName = prompt("Digite seu nome:");
-  if (!playerName || playerName.trim() === "") playerName = "Jogador(a)";
-  localStorage.setItem("playerName", playerName);
-}
+startBtn.addEventListener("click", startQuiz);
 
-// ----------------------------
-// Funções principais
-// ----------------------------
 function startQuiz() {
+  const playerNameInput = document.getElementById("playerName");
+  const playerName = playerNameInput.value.trim() || "Jogador(a)";
+  localStorage.setItem("playerName", playerName);
+
+  menuWrapper.style.display = "none";
+  quizWrapper.style.display = "flex";
+
   showQuestion();
   startTimer();
 }
 
 function showQuestion() {
-  const q = quizData[level][current];
+  const q = quizData[current];
   document.getElementById("question").textContent = q.question;
 
   const optDiv = document.getElementById("options");
@@ -75,151 +106,90 @@ function showQuestion() {
   q.options.forEach((opt, i) => {
     const btn = document.createElement("button");
     btn.textContent = opt;
-    btn.onclick = () => checkAnswer(i, btn);
+    btn.onclick = () => checkAnswer(i);
     optDiv.appendChild(btn);
   });
 
-  canAnswer = true;
-  resetTimer();
+  document.getElementById("lives").textContent = lives;
+  timeLeft = 20;
+  document.getElementById("time-bar").style.width = "100%";
 }
 
-function checkAnswer(i, btn) {
-  if (!canAnswer) return;
-  canAnswer = false;
-
-  const q = quizData[level][current];
-  const buttons = document.querySelectorAll("#options button");
-  buttons.forEach(b => b.disabled = true);
+function checkAnswer(i) {
+  const q = quizData[current];
 
   if (i === q.answer) {
-    btn.classList.add("correct");
-    tempoSobraTotal += timeLeft;
+    alert("✔️ Correto!");
   } else {
-    btn.classList.add("wrong");
     lives--;
     document.getElementById("lives").textContent = lives;
-  }
-
-  if (lives <= 0) {
-    gameOver("Você não conseguiu ajudar a salvar o planeta Terra ☹️🌍");
-    return;
-  }
-
-  setTimeout(() => nextQuestion(), 1200);
-}
-
-function nextQuestion() {
-  current++;
-
-  if (current >= quizData[level].length) {
-    level++;
-
-    if (level >= quizData.length) {
-      endGame();
+    alert("❌ Errado!");
+    if (lives <= 0) {
+      alert("💔 Fim de jogo!");
+      location.reload();
       return;
-    } else {
-      current = 0;
-      document.getElementById("level").textContent = level + 1;
     }
   }
 
-  showQuestion();
+  current++;
+  if (current >= quizData.length) {
+    clearInterval(timer);
+    showConfetti();
+    alert("🎉 Parabéns! Você completou o quiz!");
+    location.reload();
+  } else {
+    showQuestion();
+  }
 }
 
-// ----------------------------
-// Timer
-// ----------------------------
 function startTimer() {
-  timeLeft = faseTempo[level];
-  updateTimerUI();
-
   timer = setInterval(() => {
     timeLeft--;
-    updateTimerUI();
+    document.getElementById("timer").textContent = timeLeft;
+    document.getElementById("time-bar").style.width = `${(timeLeft/20)*100}%`;
 
     if (timeLeft <= 0) {
       clearInterval(timer);
-      gameOver("⏰ Tempo esgotado!");
+      lives--;
+      if (lives <= 0) {
+        alert("⏰ Tempo esgotado! Fim de jogo!");
+        location.reload();
+      } else {
+        alert("⏰ Tempo esgotado! Próxima pergunta.");
+        current++;
+        if (current >= quizData.length) {
+          showConfetti();
+          alert("🎉 Parabéns! Você completou o quiz!");
+          location.reload();
+        } else {
+          showQuestion();
+          startTimer();
+        }
+      }
     }
   }, 1000);
 }
 
-function updateTimerUI() {
-  document.getElementById("timer").textContent = timeLeft;
-  const percent = (timeLeft / faseTempo[level]) * 100;
-  document.getElementById("time-bar").style.width = percent + "%";
-}
-
-function resetTimer() {
-  clearInterval(timer);
-  timeLeft = faseTempo[level];
-  document.getElementById("time-bar").style.width = "100%";
-  startTimer();
-}
-
-// ----------------------------
-// Fim de jogo
-// ----------------------------
-function gameOver(message) {
-  clearInterval(timer);
-
-  document.querySelector(".quiz-container").innerHTML = `
-    <h2> Fim de jogo! 💔 </h2>
-    <p>${message}</p>
-    <button onclick="location.reload()">Tentar novamente</button>
-  `;
-}
-
-// ----------------------------
-// Fim do quiz + ranking
-// ----------------------------
-function endGame() {
-  clearInterval(timer);
-
-  const finalScore =
-    level * 100 + (current + 1) * 10 + tempoSobraTotal * 10 + lives * 5;
-
-  salvarPontuacao(playerName, finalScore);
-
-  document.querySelector(".quiz-container").innerHTML = `
-    <h2> 🎉🌎 Parabéns ${playerName}! Você completou o quiz! 🥇🌿</h2>
-    <p>Sua pontuação: ${finalScore}</p>
-  `;
-
-  // confetes
+// Função de confetes simples
+function showConfetti() {
   const duration = 3000;
   const end = Date.now() + duration;
 
   (function frame() {
-    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
-    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+    const colors = ['#ff0a54','#ff477e','#ff7096','#ff85a1','#fbb1b9'];
+    for (let i=0; i<5; i++) {
+      const conf = document.createElement('div');
+      conf.style.position = 'fixed';
+      conf.style.width = '10px';
+      conf.style.height = '10px';
+      conf.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+      conf.style.top = Math.random()*window.innerHeight + 'px';
+      conf.style.left = Math.random()*window.innerWidth + 'px';
+      conf.style.borderRadius = '50%';
+      conf.style.zIndex = 9999;
+      document.body.appendChild(conf);
+      setTimeout(()=> conf.remove(), 3000);
+    }
     if (Date.now() < end) requestAnimationFrame(frame);
   })();
-
-  setTimeout(() => window.location.href = "ranking.html", 2000);
 }
-
-// ----------------------------
-// Salvar ranking — versão final
-// ----------------------------
-function salvarPontuacao(nome, pontos) {
-  let ranking = JSON.parse(localStorage.getItem("ranking")) || [];
-
-  // adiciona entrada correta
-  ranking.push({
-    name: nome,
-    score: pontos,
-    date: new Date().toLocaleString()
-  });
-
-  // ordena do maior para o menor
-  ranking.sort((a, b) => b.score - a.score);
-
-  // mantém só os 10 melhores
-  ranking = ranking.slice(0, 10);
-
-  // salva de volta
-  localStorage.setItem("ranking", JSON.stringify(ranking));
-}
-
-startQuiz();
