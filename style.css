@@ -1,4 +1,3 @@
-/* ====== ESTILO GERAL ====== */
 body {
   font-family: "Poppins", sans-serif;
   margin: 0;
@@ -6,145 +5,78 @@ body {
   background: linear-gradient(135deg, #8ee7b4, #b6f0ff);
   color: #003d2e;
   min-height: 100vh;
-
   display: flex;
-  justify-content: center; /* horizontal permanece centralizado */
-  align-items: center;     /* vertical centralizado */
+  justify-content: center;
+  align-items: center;
 }
 
-/* Container principal do quiz/menu */
 .main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 650px;
+  min-height: 100vh;
+  gap: 20px;
   padding: 20px;
 }
 
-/* ====== ANIMAÇÃO ====== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ====== MENU ====== */
-.menu-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 30px;
-}
-
 .menu-card {
-  background: #ffffff;
-  width: 350px;
-  padding: 30px;
-  border-radius: 25px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
   text-align: center;
-  animation: fadeIn 0.8s ease-in-out;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.menu-title {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.menu-subtitle {
-  font-size: 16px;
-  margin-bottom: 20px;
-  opacity: 0.8;
-}
-
-.input-name {
-  width: 90%;
-  padding: 12px;
-  border: 2px solid #2bb588;
-  border-radius: 12px;
-  font-size: 15px;
-  outline: none;
-  margin-bottom: 20px;
-}
-
-.input-name:focus { border-color: #007b55; }
-
-.btn {
-  display: block;
-  width: 90%;
+.input-name, .btn {
+  width: 80%;
   padding: 12px;
   margin: 10px auto;
-  font-size: 16px;
   border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
-  text-decoration: none;
+  border: none;
+  font-size: 16px;
+  display: block;
 }
 
-.start-btn { background: #2bb588; color: #fff; border: none; }
-.start-btn:hover { background: #1c8765; transform: translateY(-2px); }
+.start-btn { background: #2bb588; color: #fff; cursor: pointer; }
+.start-btn:hover { background: #1c8765; }
 
-.ranking-btn { background: #fff; border: 2px solid #2bb588; color: #2bb588; }
-.ranking-btn:hover { background: #2bb588; color: #fff; transform: translateY(-2px); }
-
-.rules-box {
-  background: #eafeef;
-  padding: 15px;
-  border-radius: 15px;
-  margin-top: 20px;
-  border-left: 5px solid #2bb588;
-  text-align: left;
-}
-
-.rules-box h3 { margin-top: 0; }
-.rules-box ul { padding-left: 20px; }
-.good-luck { text-align: center; font-weight: 600; margin-top: 10px; color: #1f764f; }
-
-/* ====== QUIZ ====== */
 .quiz-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
 }
 
-.quiz-title {
-  font-size: 26px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.quiz-image {
-  width: 80%;
-  max-width: 400px;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
+.quiz-title { font-size: 28px; margin-bottom: 20px; text-align: center; }
 
 .quiz-container {
   width: 100%;
   max-width: 500px;
-  background: white;
-  text-align: center;
-  padding: 25px;
+  background: #fff;
+  padding: 20px;
   border-radius: 20px;
+  text-align: center;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .stats {
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
   margin-bottom: 15px;
 }
 
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
 .options button {
-  display: block;
-  width: 100%;
-  margin: 8px 0;
+  flex: 1 1 45%;
+  min-width: 100px;
   padding: 12px;
   border-radius: 12px;
   border: none;
@@ -159,16 +91,16 @@ body {
 
 .time-bar-container {
   width: 100%;
-  height: 15px;
+  height: 12px;
   background: #eee;
   border-radius: 10px;
-  overflow: hidden;
   margin-top: 15px;
+  overflow: hidden;
 }
 
 .time-bar {
   height: 100%;
-  background: linear-gradient(90deg, #00b37e, #00e6a5);
   width: 100%;
+  background: linear-gradient(90deg, #00b37e, #00e6a5);
   transition: width 1s linear;
 }
